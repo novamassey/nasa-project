@@ -1,8 +1,7 @@
-import GoogleLogin from "react-google-login";
 import { useState } from "react";
-import "./App.css";
+import GoogleLogin from "react-google-login";
 
-function App() {
+export default function Nav() {
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData"))
@@ -34,30 +33,22 @@ function App() {
   const handleFailure = (result) => {
     alert(result);
   };
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1> REACT GOOGLE</h1>
-        <div>
-          {loginData ? (
-            <>
-              <p>Welcome {loginData.name}</p>
-              <button onClick={handleLogout}>Logout</button>
-            </>
-          ) : (
-            <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              buttonText="Login with Google"
-              onSuccess={handleLogin}
-              onFailure={handleFailure}
-              cookiePolicy={"single_host_origin"}
-            ></GoogleLogin>
-          )}
-        </div>
-      </header>
-    </div>
+    <nav>
+      {loginData ? (
+        <>
+          <p>Welcome {loginData.name}</p>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      ) : (
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          buttonText="Login with Google"
+          onSuccess={handleLogin}
+          onFailure={handleFailure}
+          cookiePolicy={"single_host_origin"}
+        ></GoogleLogin>
+      )}
+    </nav>
   );
 }
-
-export default App;
